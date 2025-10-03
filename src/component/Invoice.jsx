@@ -1,11 +1,13 @@
-export default function Invoice({RDetails,onChange,darkMode}) {
+import Item from "./Item";
+
+export default function Invoice({RDetails,onChange,darkMode,addrows,deleterows,updaterows}) {
 
 const classname = "border border-gray-300 rounded px-3 py-2 w-full"
 let classdark = 'bg-gray-800 text-white border border-gray-700'
 
 const Rfields = [
 // Invoice Details
-  { name: 'invoice_number', placeholder: 'Invoice Number', type: 'text', section: 'invoice' },
+  { name: 'invoice_number', placeholder: 'Invoice Number', type: 'number', section: 'invoice' },
   { name: 'invoice_date', placeholder: 'Invoice Date (YYYY/MM/DD)', type: 'date', section: 'invoice' },
   { name: 'invoice_due_date', placeholder: 'Due Date (YYYY/MM/DD)', type: 'date', section: 'invoice' },
   
@@ -43,6 +45,25 @@ const Rfields = [
                         onChange={onChange}
                         value={RDetails[f.name]}/>
                 ))}
+
+                <button onClick={addrows}>Add Row</button>
+      
+                {RDetails.rows.length > 0 ?
+                  RDetails.rows.map((r,index) => (
+                    <Item
+                        key={index}
+                        title={`Item ${index+1}`}
+                        name = {r.name}
+                        classname={classname}
+                        placeholder={r.description}
+                        type= {r.type}
+                        onChange={(e)=>updaterows(index,e)}
+                        Value={RDetails.rows[r.name]}
+                        delrow = {()=>deleterows(index)}
+                          />
+                )):("")}
+
+                <button>Submit</button>
 
             </div>
         </div>

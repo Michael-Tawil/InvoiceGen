@@ -5,6 +5,7 @@ function App() {
   const [darkMode,SetdarkMode] = useState(false)
   const [RDetails, SetRD] = useState({
 
+    rows:[],
     invoice_number: '',
     invoice_date: '',
     invoice_due_date: '',
@@ -42,11 +43,41 @@ function App() {
         ...prev, [name]: value
       }))
   }
+
+  const addrows = () => {
+
+    SetRD(prev=>({
+      ...prev,
+      rows:[...prev.rows,{
+
+        description:"",
+        quantity:"",
+        price:""
+      }]
+    }))
+  }
+
+  const updaterows = (index, e) => {
+
+    const { name, value } = e.target;
+
+    SetRD(prev => ({
+      ...prev,
+      rows:prev.rows.map((row,i)=> i === index ? {...row, [name]:value}: row)
+    }))
+  }
+
+  const deleterows = (index) => {
+    SetRD(prev => ({
+      ...prev,
+      rows: prev.rows.filter((_,i)=>i !== index)
+    }))
+  }
   console.log(RDetails)
 
   return (
     <>
-      <Invoice RDetails={RDetails} onChange={HandleChange} darkMode={darkMode} />
+      <Invoice RDetails={RDetails} onChange={HandleChange} darkMode={darkMode} addrows={addrows} deleterows={deleterows} updaterows={updaterows}/>
     </>
   )
 
