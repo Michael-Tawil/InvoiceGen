@@ -1,33 +1,30 @@
-export default function Item({ onChange, Value, type, title, classname, delrow }) {
-
-let i = 0
-
-    return (
+export default function Item({ onChange, row, title, classname, delrow }) {
+return (
         <div>
             <h3>{title}</h3>
             <input
-                name={"description"}
+                name="description"
                 className={classname}
-                placeholder={"description"}
-                type={type}
+                placeholder="description"
+                type="text"
                 onChange={onChange}
-                value={Value} />
+                value={row.description} />
 
             <input
-                name={"quantity"}
+                name="quantity"
                 className={classname}
-                placeholder={"quantity"}
-                type={type}
+                placeholder="quantity"
+                type="number"
                 onChange={onChange}
-                value={Value} />
+                value={row.quantity} />
 
             <input
-                name={"price"}
+                name="price"
                 className={classname}
-                placeholder={"price"}
-                type={type}
+                placeholder="price"
+                type= "number"
                 onChange={onChange}
-                value={Value} />
+                value={row.price} />
 
             <button onClick={delrow}>Delete</button>
         </div>
